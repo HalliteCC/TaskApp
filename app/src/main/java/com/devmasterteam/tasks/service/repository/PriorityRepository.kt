@@ -38,6 +38,9 @@ class PriorityRepository(val context: Context) {
         })
     }
 
+    fun list(): List<PriorityModel>{
+        return dataBase.list()
+    }
 
     fun save(list: List<PriorityModel>){
         dataBase.clear()

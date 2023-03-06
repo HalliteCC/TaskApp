@@ -3,7 +3,6 @@ package com.devmasterteam.tasks.service.repository
 import com.devmasterteam.tasks.service.constants.TaskConstants
 import com.devmasterteam.tasks.service.listener.APIListener
 import com.devmasterteam.tasks.service.model.TaskModel
-import com.devmasterteam.tasks.service.repository.remote.PersonService
 import com.devmasterteam.tasks.service.repository.remote.RetrofitClient
 import com.devmasterteam.tasks.service.repository.remote.TaskService
 import retrofit2.Call

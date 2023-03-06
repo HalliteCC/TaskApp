@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.devmasterteam.tasks.R
 import com.devmasterteam.tasks.databinding.ActivityRegisterBinding
 import com.devmasterteam.tasks.databinding.ActivityTaskFormBinding
+import com.devmasterteam.tasks.service.model.PriorityModel
+import com.devmasterteam.tasks.service.model.TaskModel
 import com.devmasterteam.tasks.viewmodel.RegisterViewModel
 import com.devmasterteam.tasks.viewmodel.TaskFormViewModel
 import java.text.SimpleDateFormat
@@ -20,6 +22,7 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
     private lateinit var viewModel: TaskFormViewModel
     private lateinit var binding: ActivityTaskFormBinding
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+    private var listPriority: List<PriorityModel> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +37,6 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
 
         viewModel.loadPriorities()
 
-
-
         observe()
 
         // Layout
@@ -45,6 +46,8 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
     override fun onClick(v: View) {
         if(v.id == R.id.button_date) {
             handleDate()
+        }else if (v.id == R.id.button_save) {
+             handleSave()
         }
     }
 
@@ -56,16 +59,30 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener, DatePickerDi
         binding.buttonDate.text = dueDate
     }
 
-   private fun handleDate(){
+    private fun handleDate(){
        val calendar = Calendar.getInstance()
        val year = calendar.get(Calendar.YEAR)
        val month = calendar.get(Calendar.MONTH)
        val day = calendar.get(Calendar.DAY_OF_MONTH)
        DatePickerDialog(this, this, year, month, day).show()
    }
+    private fun handleSave(){
+        val task = TaskModel().apply {
+            this.id = 0
+            this.description = binding.editDescription.text.toString()
+            this.complete = binding.checkComplete.isChecked
+            this.dueData = binding.buttonDate.text.toString()
+
+            val index = binding.spinnerPriority.selectedItemPosition
+            this.priorityId = listPriority[index].id
+        }
+
+        viewModel.save(task)
+    }
 
     private fun observe(){
         viewModel.priorityList.observe(this){
+            listPriority = it
             val list = mutableListOf<String>()
             for(p in it){
                 list.add(p.description)

@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PriorityRepository(val context: Context) {
+class PriorityRepository(val context: Context): BaseRepository() {
 
     private val remote = RetrofitClient.getService(PriorityService::class.java)
     private val dataBase = TaskDatabase.getDatabase(context).priorityDao()
@@ -25,15 +25,11 @@ class PriorityRepository(val context: Context) {
             override fun onResponse(
                 call: Call<List<PriorityModel>>, response: Response<List<PriorityModel>>
             ) {
-                if (response.code() == TaskConstants.HTTP.SUCCESS) {
-                    response.body()?.let { listener.onSuccess(it) }
-                } else {
-                    listener.onFaliure(failResponse(response.errorBody()!!.string()))
-                }
+                handleResponse(response, listener)
             }
 
             override fun onFailure(call: Call<List<PriorityModel>>, t: Throwable) {
-                listener.onFaliure(context.getString(R.string.ERROR_UNEXPECTED))
+                handleFaliure(listener, context)
             }
         })
     }
@@ -46,11 +42,4 @@ class PriorityRepository(val context: Context) {
         dataBase.clear()
         dataBase.save(list)
     }
-
-
-    private fun failResponse(str: String): String{
-        return Gson().fromJson(str, String::class.java)
-    }
-
-
 }

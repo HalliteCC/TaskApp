@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskRepository(val context: Context) {
+class TaskRepository(val context: Context): BaseRepository() {
 
     private val remote = RetrofitClient.getService(TaskService::class.java)
 
@@ -21,19 +21,12 @@ class TaskRepository(val context: Context) {
         val call = remote.creatTask(task.priorityId, task.description, task.dueData, task.complete)
         call.enqueue(object : Callback <Boolean>  {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                if (response.code() == TaskConstants.HTTP.SUCCESS) {
-                    response.body()?.let { listener.onSuccess(it) }
-                }else{
-                    listener.onFaliure(failResponse(response.errorBody()!!.string()))
-                }
+                handleResponse(response, listener)
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                listener.onFaliure(context.getString(R.string.ERROR_UNEXPECTED))
+                handleFaliure(listener, context)
             }
         })
-    }
-    private fun failResponse(str: String): String{
-        return Gson().fromJson(str, String::class.java)
     }
 }

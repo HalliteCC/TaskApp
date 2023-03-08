@@ -44,6 +44,19 @@ class TaskRepository(val context: Context): BaseRepository() {
         })
     }
 
+    fun delete(id: Int, listener: APIListener<Boolean>){
+        val call = remote.deleteTask(id)
+        call.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                handleResponse(response, listener)
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                handleFaliure(listener, context)
+            }
+
+        })
+    }
 
    private fun getList(call: Call<List<TaskModel>>, listener: APIListener<List<TaskModel>>){
         call.enqueue(object : Callback<List<TaskModel>>{
@@ -61,4 +74,5 @@ class TaskRepository(val context: Context): BaseRepository() {
         })
 
     }
+
 }

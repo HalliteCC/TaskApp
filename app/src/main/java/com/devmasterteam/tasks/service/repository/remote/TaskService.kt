@@ -2,13 +2,7 @@ package com.devmasterteam.tasks.service.repository.remote
 
 import com.devmasterteam.tasks.service.model.TaskModel
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface TaskService {
 
@@ -54,8 +48,7 @@ interface TaskService {
 
 
 
-    //TODO - Aqui teremos um problema
-    @DELETE("Task/Undo")
+    @HTTP(method = "DELETE", path = "Task", hasBody = true)
     @FormUrlEncoded
     fun deleteTask(@Field("Id") id: Int): Call<Boolean>
 }

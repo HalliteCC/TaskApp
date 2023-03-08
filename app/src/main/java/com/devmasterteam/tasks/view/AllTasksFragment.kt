@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devmasterteam.tasks.databinding.FragmentAllTasksBinding
+import com.devmasterteam.tasks.service.listener.APIListener
 import com.devmasterteam.tasks.service.listener.TaskListener
 import com.devmasterteam.tasks.service.model.TaskModel
 import com.devmasterteam.tasks.view.adapter.TaskAdapter
@@ -37,8 +39,9 @@ class AllTasksFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
+
             override fun onDeleteClick(id: Int) {
-                TODO("Not yet implemented")
+                viewModel.deleteTask(id)
             }
 
             override fun onCompleteClick(id: Int) {
@@ -73,6 +76,12 @@ class AllTasksFragment : Fragment() {
     private fun observe() {
         viewModel.tasks.observe(viewLifecycleOwner){
         adapter.updateTasks(it)
+        }
+
+        viewModel.delete.observe(viewLifecycleOwner){
+            if (!it.status()){
+                Toast.makeText(context, it.message(), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -9,22 +9,10 @@ import com.devmasterteam.tasks.service.model.TaskModel
 import com.devmasterteam.tasks.view.viewholder.TaskViewHolder
 
 class TaskAdapter : RecyclerView.Adapter<TaskViewHolder>() {
+    
 
     private var listTasks: List<TaskModel> = arrayListOf()
-    private  var listener: TaskListener = object : TaskListener {
-        override fun onListClick(id: Int) {
-        }
-
-        override fun onDeleteClick(id: Int) {
-        }
-
-        override fun onCompleteClick(id: Int) {
-        }
-
-        override fun onUndoClick(id: Int) {
-        }
-
-    }
+    private lateinit var listener: TaskListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val inflater = LayoutInflater.from(parent.context)

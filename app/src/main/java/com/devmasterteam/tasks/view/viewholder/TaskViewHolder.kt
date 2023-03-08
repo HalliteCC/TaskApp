@@ -1,34 +1,58 @@
 package com.devmasterteam.tasks.view.viewholder
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.icu.text.SimpleDateFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.devmasterteam.tasks.R
 import com.devmasterteam.tasks.databinding.RowTaskListBinding
 import com.devmasterteam.tasks.service.listener.TaskListener
 import com.devmasterteam.tasks.service.model.TaskModel
+import com.devmasterteam.tasks.service.repository.PriorityRepository
 
 class TaskViewHolder(private val itemBinding: RowTaskListBinding, val listener: TaskListener) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
+    val priorityRepository = PriorityRepository(itemView.context)
+
     /**
      * Atribui valores aos elementos de interface e também eventos
      */
+
+
     fun bindData(task: TaskModel) {
 
         itemBinding.textDescription.text = task.description
-        itemBinding.textPriority.text = task.priorityId.toString()
-        itemBinding.textDueDate.text = task.dueData
+        itemBinding.textPriority.text = priorityRepository.getDescription(task.priorityId)
 
-        // Eventos
-        // itemBinding.textDescription.setOnClickListener { listener.onListClick(task.id) }
-        // itemBinding.imageTask.setOnClickListener { }
+       val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse(task.dueData)
+
+        itemBinding.textDueDate.text = java.text.SimpleDateFormat("dd/MM/yyyy").format(date)
+
+        if (task.complete){
+            itemBinding.imageTask.setImageResource(R.drawable.ic_done)
+        }else {
+            itemBinding.imageTask.setImageResource(R.drawable.ic_todo)
+        }
+
+
+        itemBinding.textDescription.setOnClickListener { listener.onListClick(task.id) }
+        itemBinding.imageTask.setOnClickListener {
+            if(task.complete){
+                listener.onUndoClick(task.id)
+            }else {
+                listener.onCompleteClick(task.id)
+            }
+        }
 
         itemBinding.textDescription.setOnLongClickListener {
             AlertDialog.Builder(itemView.context)
                 .setTitle(R.string.remocao_de_tarefa)
                 .setMessage(R.string.remover_tarefa)
                 .setPositiveButton(R.string.sim) { dialog, which ->
-                    // listener.onDeleteClick(task.id)
+                    listener.onDeleteClick(task.id)
                 }
                 .setNeutralButton(R.string.cancelar, null)
                 .show()

@@ -43,17 +43,7 @@ class PriorityRepository(val context: Context): BaseRepository() {
 
     fun list(listener: APIListener<List<PriorityModel>>) {
         val call = remote.list()
-        call.enqueue(object : Callback<List<PriorityModel>> {
-            override fun onResponse(
-                call: Call<List<PriorityModel>>, response: Response<List<PriorityModel>>
-            ) {
-                handleResponse(response, listener)
-            }
-
-            override fun onFailure(call: Call<List<PriorityModel>>, t: Throwable) {
-                handleFaliure(listener, context)
-            }
-        })
+        executeCall(call, listener, context)
     }
 
     fun list(): List<PriorityModel>{

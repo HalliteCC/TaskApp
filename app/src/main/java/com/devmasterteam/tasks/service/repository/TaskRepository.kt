@@ -19,16 +19,13 @@ class TaskRepository(val context: Context): BaseRepository() {
 
 
     fun list(listener: APIListener<List<TaskModel>>){
-        val call = remote.listTask()
-        getList(call, listener)
+        executeCall(remote.listTask(), listener, context)
     }
     fun list7DaysTask(listener: APIListener<List<TaskModel>>){
-        val call = remote.list7DaysTask()
-        getList(call, listener)
+        executeCall(remote.list7DaysTask(), listener, context)
     }
     fun listOverdue(listener: APIListener<List<TaskModel>>){
-        val call = remote.listOverdue()
-        getList(call, listener)
+        executeCall(remote.listOverdue(), listener, context)
     }
 
     fun create(task: TaskModel, listener: APIListener<Boolean>){
@@ -37,12 +34,14 @@ class TaskRepository(val context: Context): BaseRepository() {
     }
 
     fun delete(id: Int, listener: APIListener<Boolean>){
-        val call = remote.deleteTask(id)
-        executeCall(call, listener, context)
+        executeCall(remote.deleteTask(id), listener, context)
     }
 
-   private fun getList(call: Call<List<TaskModel>>, listener: APIListener<List<TaskModel>>){
-       executeCall(call, listener, context)
+    fun complete(id: Int, listener: APIListener<Boolean>){
+        executeCall(remote.completeTask(id), listener, context)
     }
 
+    fun undo(id: Int, listener: APIListener<Boolean>){
+        executeCall(remote.undo(id), listener, context)
+    }
 }

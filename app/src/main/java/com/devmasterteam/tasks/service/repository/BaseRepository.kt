@@ -18,8 +18,6 @@ open class BaseRepository {
         return Gson().fromJson(str, String::class.java)
     }
 
-
-
     fun <S> executeCall(call: Call<S>, listener: APIListener<S>, context: Context) {
         call.enqueue(object : Callback<S> {
             override fun onResponse(call: Call<S>, response: Response<S>) {
@@ -36,4 +34,6 @@ open class BaseRepository {
 
         })
     }
+
+
 }

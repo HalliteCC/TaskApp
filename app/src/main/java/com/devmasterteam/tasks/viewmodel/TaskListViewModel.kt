@@ -28,7 +28,7 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
     fun list() {
         taskRepository.list(object : APIListener<List<TaskModel>> {
             override fun onSuccess(result: List<TaskModel>) {
-                result.forEach{
+                result.forEach {
                     it.priorityDescription = priorityRepository.getDescription(it.priorityId)
                 }
                 _tasks.value = result
@@ -40,8 +40,8 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun deleteTask(id:Int){
-        taskRepository.delete(id, object : APIListener<Boolean>{
+    fun deleteTask(id: Int) {
+        taskRepository.delete(id, object : APIListener<Boolean> {
             override fun onSuccess(result: Boolean) {
                 list()
             }
@@ -53,7 +53,7 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun status(id:Int, complete: Boolean){
+    fun status(id: Int, complete: Boolean) {
         val listener = object : APIListener<Boolean> {
             override fun onSuccess(result: Boolean) {
                 list()
@@ -64,15 +64,11 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
             }
         }
 
-        if(complete){
+        if (complete) {
             taskRepository.complete(id, listener)
 
-        }else {
+        } else {
             taskRepository.undo(id, listener)
         }
-    }
-
-    fun update(id:Int){
-
     }
 }

@@ -15,7 +15,6 @@ import com.devmasterteam.tasks.service.repository.PriorityRepository
 class TaskViewHolder(private val itemBinding: RowTaskListBinding, val listener: TaskListener) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
-    val priorityRepository = PriorityRepository(itemView.context)
 
     /**
      * Atribui valores aos elementos de interface e também eventos
@@ -25,7 +24,7 @@ class TaskViewHolder(private val itemBinding: RowTaskListBinding, val listener: 
     fun bindData(task: TaskModel) {
 
         itemBinding.textDescription.text = task.description
-        itemBinding.textPriority.text = priorityRepository.getDescription(task.priorityId)
+        itemBinding.textPriority.text = task.priorityDescription
 
        val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse(task.dueData)
 

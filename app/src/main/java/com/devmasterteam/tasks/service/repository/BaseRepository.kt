@@ -1,24 +1,25 @@
 package com.devmasterteam.tasks.service.repository
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import com.devmasterteam.tasks.R
 import com.devmasterteam.tasks.service.constants.TaskConstants
 import com.devmasterteam.tasks.service.listener.APIListener
-import com.devmasterteam.tasks.service.repository.remote.RetrofitClient
-import com.devmasterteam.tasks.service.repository.remote.TaskService
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-open class BaseRepository {
+open class BaseRepository(val context: Context) {
 
 
     private fun failResponse(str: String): String {
         return Gson().fromJson(str, String::class.java)
     }
 
-    fun <S> executeCall(call: Call<S>, listener: APIListener<S>, context: Context) {
+    fun <S> executeCall(call: Call<S>, listener: APIListener<S>) {
         call.enqueue(object : Callback<S> {
             override fun onResponse(call: Call<S>, response: Response<S>) {
                 if (response.code() == TaskConstants.HTTP.SUCCESS) {
@@ -36,4 +37,18 @@ open class BaseRepository {
     }
 
 
+    fun isConnectionAvaiable(): Boolean {
+        var result = false
+
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNet = cm.activeNetwork ?: return false
+        val netWorkCapabilities = cm.getNetworkCapabilities(activeNet) ?: return false
+
+        result = when {
+            netWorkCapabilities.hasCapability(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            netWorkCapabilities.hasCapability(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            else -> false
+        }
+        return result
+    }
 }

@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PriorityRepository(val context: Context): BaseRepository() {
+class PriorityRepository(context: Context): BaseRepository(context) {
 
     private val remote = RetrofitClient.getService(PriorityService::class.java)
     private val dataBase = TaskDatabase.getDatabase(context).priorityDao()
@@ -43,7 +43,7 @@ class PriorityRepository(val context: Context): BaseRepository() {
 
     fun list(listener: APIListener<List<PriorityModel>>) {
         val call = remote.list()
-        executeCall(call, listener, context)
+        executeCall(call, listener)
     }
 
     fun list(): List<PriorityModel>{

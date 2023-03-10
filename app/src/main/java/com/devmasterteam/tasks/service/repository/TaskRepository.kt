@@ -19,45 +19,77 @@ class TaskRepository(context: Context) : BaseRepository(context) {
 
 
     fun list(listener: APIListener<List<TaskModel>>) {
-       /* if(!isConnectionAvaiable()){
+        if(!isConnectionAvaiable()){
             listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
             return
-        }*/
+        }
         executeCall(remote.listTask(), listener)
     }
 
     fun list7DaysTask(listener: APIListener<List<TaskModel>>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.list7DaysTask(), listener)
     }
 
     fun listOverdue(listener: APIListener<List<TaskModel>>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.listOverdue(), listener)
     }
 
     fun create(task: TaskModel, listener: APIListener<Boolean>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         val call = remote.creatTask(task.priorityId, task.description, task.dueDate, task.complete)
         executeCall(call, listener)
     }
 
     fun update(task: TaskModel, listener: APIListener<Boolean>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         val call =
             remote.update(task.id, task.priorityId, task.description, task.dueDate, task.complete)
         executeCall(call, listener)
     }
 
     fun delete(id: Int, listener: APIListener<Boolean>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.deleteTask(id), listener)
     }
 
     fun complete(id: Int, listener: APIListener<Boolean>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.completeTask(id), listener)
     }
 
     fun undo(id: Int, listener: APIListener<Boolean>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.undo(id), listener)
     }
 
     fun load(id: Int, listener: APIListener<TaskModel>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         executeCall(remote.load(id), listener)
     }
 }

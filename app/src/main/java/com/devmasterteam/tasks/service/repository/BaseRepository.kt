@@ -1,6 +1,6 @@
 package com.devmasterteam.tasks.service.repository
 
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -45,8 +45,8 @@ open class BaseRepository(val context: Context) {
         val netWorkCapabilities = cm.getNetworkCapabilities(activeNet) ?: return false
 
         result = when {
-            netWorkCapabilities.hasCapability(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            netWorkCapabilities.hasCapability(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            netWorkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            netWorkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             else -> false
         }
         return result

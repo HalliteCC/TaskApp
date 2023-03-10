@@ -18,6 +18,11 @@ class PersonRepository(context: Context): BaseRepository(context) {
 
 
     fun login(email: String, password: String, listener: APIListener<PersonModel>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
+
         val call = remote.login(email, password)
         executeCall(call, listener)
     }

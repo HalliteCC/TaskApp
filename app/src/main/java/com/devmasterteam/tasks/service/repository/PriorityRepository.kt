@@ -42,6 +42,10 @@ class PriorityRepository(context: Context): BaseRepository(context) {
 
 
     fun list(listener: APIListener<List<PriorityModel>>) {
+        if(!isConnectionAvaiable()){
+            listener.onFaliure(context.getString(R.string.ERROR_INTERNET_CONNECTION))
+            return
+        }
         val call = remote.list()
         executeCall(call, listener)
     }

@@ -27,7 +27,7 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:drawableTint">@color/white</item>
+        <item name="android:drawableTint">#684F78</item>
     </style>
 
     <style name="Theme.Tasks.NoActionBar">

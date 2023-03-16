@@ -60,5 +60,4 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel.create(name, email, password)
     }
-
 }

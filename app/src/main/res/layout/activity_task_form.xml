@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@drawable/shape_background"
     tools:context=".view.TaskFormActivity">
 
     <EditText
+        style="@style/EditTextWhite"
         android:id="@+id/edit_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,13 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
+        style="@style/viewDivider"
         android:id="@+id/view_description"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
     <TextView
+        style="@style/EditTextWhite"
         android:id="@+id/text_priority"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_priority" />
 
     <View
+        style="@style/viewDivider"
         android:id="@+id/view_complete"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -52,6 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_priority" />
 
     <CheckBox
+        style="@style/EditTextWhite"
         android:id="@+id/check_complete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -63,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view_complete" />
 
     <View
+        style="@style/viewDivider"
         android:id="@+id/view_date"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -70,7 +76,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_complete" />
 
+    <TextView
+        style="@style/EditTextWhite"
+        android:id="@+id/text_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/data_limite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_date" />
+
     <Button
+        style="@style/EditTextWhite"
         android:id="@+id/button_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -81,9 +99,10 @@
         android:hint="@string/clique_para_selecionar_a_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_date" />
+        app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
     <View
+        style="@style/viewDivider"
         android:id="@+id/view_save"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -92,6 +111,7 @@
         app:layout_constraintTop_toBottomOf="@id/button_date" />
 
     <Button
+        style="@style/DefaultButtom"
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

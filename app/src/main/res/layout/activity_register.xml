@@ -39,7 +39,6 @@
         android:id="@+id/edit_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:padding="14dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"

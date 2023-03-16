@@ -17,7 +17,7 @@
         android:textSize="25sp"
         android:text="Cadastro de usurário"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,16 +54,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_email"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:ems="15"
             android:hint="@string/senha"
             android:inputType="textPassword"
             android:textSize="18sp">
+
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>

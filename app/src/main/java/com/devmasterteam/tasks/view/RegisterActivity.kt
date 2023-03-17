@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun handleRegister(){
         val name = binding.editName.text.toString()
         val email = binding.editEmail.text.toString()
-        val password = binding.editPassword.toString()
+        val password = binding.editPassword.text.toString()
 
         viewModel.create(name, email, password)
     }
